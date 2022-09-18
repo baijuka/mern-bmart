@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Link, Route, Routes} from 'react-router-dom';
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from './screens/ProductScreen';
 
@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
     <div>
       <header>
-        <a href='/'>B-mart</a>
+        <Link to='/'>B-mart</Link>
       </header>
       <main>
         <Routes>
