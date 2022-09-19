@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -13,6 +13,7 @@ import { Helmet } from "react-helmet-async";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { getError } from "../utils";
+import { Store } from "../Store";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -53,6 +54,28 @@ const ProductScreen = () => {
       }
       fetchData();
   },[slug])
+
+  // To add an item to the cart you need to dispatch an action under a React context
+
+  const {state, dispatch: cxtDispatch} = useContext(Store);
+  // By using the useContext we can access the state of the context and change the context ie cxtDispatch
+
+  const {cart} =  state;
+
+  const addToCartHandler = async() => {
+    // Check current item exists in the cart or not
+
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const {data} = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Sorry. Product is out of stock');
+      return;
+    }
+    cxtDispatch({type: 'CART_ADD_ITEM', payload: {...product, quantity}})
+  }
+
+  // Now add items in the cart as a Badge in the app.js Navbar section
 
   return (
     loading ? 
@@ -115,7 +138,7 @@ const ProductScreen = () => {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant='primary'>
+                      <Button onClick={addToCartHandler} variant='primary'>
                         Add to Bag
                       </Button>
                     </div>
