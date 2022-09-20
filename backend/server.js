@@ -1,5 +1,17 @@
 import express from 'express';
 import data from './data.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv'
+
+// To fetch the variables in the .env file
+dotenv.config();
+
+// Connect to mongodb database - here MONGODB_URI is the variable in .env where connection string is stored.
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+    console.log('Connected to database');
+}).catch(err => {
+    console.log(err.message);
+});
 
 const app = express();
 
