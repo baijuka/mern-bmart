@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useReducer } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -30,6 +30,7 @@ const reducer = (state, action) => {
 
 const ProductScreen = () => {
     // const params = useParams();
+    const navigate = useNavigate();
     const {slug} = useParams();
     console.log({slug});
 
@@ -72,7 +73,12 @@ const ProductScreen = () => {
       window.alert('Sorry. Product is out of stock');
       return;
     }
-    cxtDispatch({type: 'CART_ADD_ITEM', payload: {...product, quantity}})
+    cxtDispatch({type: 'CART_ADD_ITEM', payload: {...product, quantity}
+  });
+  
+  // Navigate to car page - here we use useNavigate hook to get this functionality
+  
+  navigate('/cart');
   }
 
   // Now add items in the cart as a Badge in the app.js Navbar section
