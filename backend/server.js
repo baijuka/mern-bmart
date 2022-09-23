@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import orderRouter from './routes/orderRoutes.js'
 
 
 // To fetch the variables in the .env file
@@ -31,6 +32,8 @@ app.use('/api/products', productRouter);
 // Api for users
 app.use('/api/users', userRouter);
 
+// Api for orders
+app.use('/api/orders', orderRouter);
 
 const port = process.env.PORT || 5000;
 
