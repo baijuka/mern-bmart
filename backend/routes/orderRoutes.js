@@ -26,6 +26,18 @@ orderRouter.post(
   })
 );
 
+
+// the following API returns the orders of the current user
+
+orderRouter.get(
+  '/mine',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.user._id });
+    res.send(orders);
+  })
+);
+
 orderRouter.get(
     '/:id',
     isAuth,
@@ -62,5 +74,5 @@ orderRouter.get(
       }
     })
   );
-  
+   
 export default orderRouter;
