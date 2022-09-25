@@ -1,5 +1,6 @@
 import express from 'express';
-import data from './data.js';
+// import data from './data.js';
+import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import seedRouter from './routes/seedRoutes.js';
@@ -39,12 +40,25 @@ app.use('/api/users', userRouter);
 // Api for orders
 app.use('/api/orders', orderRouter);
 
-const port = process.env.PORT || 5000;
+
+const __dirname = path.resolve();  // Returns the current directory - need to import path from 'path'
+app.use(express.static(path.join(__dirname, '/frontend/build'))); // This middleware serves all files in the frontend/build folder as static files
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))  // * - represents every thing the user enters after the domain name (eg. localhost:3000) should be served by index.html
+);                                                                  // there is no build folder in the frontend folder. We have added to create one in bmart/package.json "scrpts": So,open terminal, go to bmart root folder and type $ npm run build
+
+app.use(express.static(path.join(__dirname, '/frontend/build')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
+);
+
 
 //when there is an error in userRouter async function this error will be triggered
 app.use((err, req, res, next) => {
     res.status(500).send({ message: err.message });
   });
+
+const port = process.env.PORT || 5000;
 
 app.listen(port, ()=> {
     console.log(`Serve at http://localhost:${port}`);

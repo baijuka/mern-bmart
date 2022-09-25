@@ -1,0 +1,21 @@
+{
+  "name": "bmart",
+  "version": "1.0.0",
+  "description": "This site was developed using MERN Full Stack technology",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd backend && npm install  && cd ../frontend && npm install && npm run build",
+    "start": "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baijuka/mern-bmart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/baijuka/mern-bmart/issues"
+  },
+  "homepage": "https://github.com/baijuka/mern-bmart#readme"
+}
