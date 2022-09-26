@@ -1,3 +1,5 @@
+## Please note this a an imaginary website developed for learning purpose only.
+
 # [B-Mart Ecommerce Site](https://mern-bmart.herokuapp.com/)
 This site was developed using MERN Full Stack technology
 
