@@ -1,4 +1,4 @@
-# B-Mart Ecommerce Site
+# [B-Mart Ecommerce Site](https://mern-bmart.herokuapp.com/)
 This site was developed using MERN Full Stack technology
 
 # Steps 
